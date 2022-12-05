@@ -1,0 +1,7 @@
+---
+# defaults file for ansible-role-openshift-local
+crc_config_preset: openshift
+crc_config_cpus: 5
+crc_config_memory: 14305
+crc_config_pull_secret_file: "~/Downloads/pull-secret.txt"
+crc_consent_telemetry: "yes"

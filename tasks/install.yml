@@ -1,0 +1,16 @@
+---
+# Install / Upgrade the CRC command line tool
+
+- name: Download crc [Mac OS]
+  shell: wget https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc/latest/crc-macos-installer.pkg
+
+- name: Install crc [Mac OS]
+  shell: installer -pkg crc-macos-installer.pkg -target rm crc-macos-installer.pkg
+  become: true
+
+# Ensure location /usr/local/bin/crc
+#$ which crc
+
+# Check software versions
+#$ hyperkit -version
+#$ crc version

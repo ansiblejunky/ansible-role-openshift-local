@@ -1,0 +1,3 @@
+---
+- name: Show details about the running instance
+  command: crc status -o json
