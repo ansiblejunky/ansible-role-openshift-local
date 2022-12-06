@@ -8,19 +8,11 @@ None
 
 ## Testing
 
-Testing the Ansible Role is achieved through the following areas.
+The test playbook uses extra variable `mode` to allow easily testing each of the task files. An example of runing the `configure` mode:
 
-> Linting
-
-The role uses `ansible-lint` to perform linting when you commit code locally using git. You might have 
-
-> Continuous Integration (CI)
-
-- Using VSCode with Docker and Ansible extension to run `ansible-lint` on existing code
-
-> Unit Testing
-
-- Using `ansible-navigator` with an Execution Environment container image to run the [test playbook](./tests/test.yml) against a target environment.
+```shell
+ansible-playbook tests/test.yml -i tests/inventory -c local -e mode=configure
+```
 
 ## License
 

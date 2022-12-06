@@ -1,0 +1,30 @@
+---
+# OpenShift Local installation won't appear in the OpenShift Cluster Manager unless you enable cluster monitoring and telemetry.
+
+- name: Ensure pull secret file exists
+  stat:
+    path: "{{ crc_config_pull_secret_file }}"
+  register: result
+
+- name: Fail if pull secret not found
+  fail:
+    msg: "Pull secret not found at {{ crc_config_pull_secret_file }}"
+  when: not result.stat.exists
+
+- name: Set configuration properties
+  command: "crc config set {{ item }}"
+  with_items: 
+    - "consent-telemetry {{ crc_config_consent_telemetry }}"
+    - "enable-cluster-monitoring {{ crc_config_enable_cluster_monitoring }}"
+    - "cpus {{ crc_config_cpus }}"
+    - "memory {{ crc_config_memory }}"
+    - "pull-secret-file {{ crc_config_pull_secret_file }}"
+    - "preset {{ crc_config_preset }}"
+    - "kubeadmin-password {{ crc_config_kubeadmin_password }}"
+
+# Prepare and create ~/.crc directory if not already existing
+- name: Set up local virtualization and networking infrastructure
+  command: crc setup -o json
+
+- name: Display configuration
+  command: crc config view

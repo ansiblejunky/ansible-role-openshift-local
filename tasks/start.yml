@@ -1,3 +1,13 @@
 ---
 - name: Start the instance
   command: crc start
+  register: result
+  changed_when: not "already running" in result.stderr
+
+- debug:
+    var: result.stdout_lines
+
+- name: Open the OpenShift Web Console in the default browser
+  command: crc console
+  register: result
+  changed_when: false

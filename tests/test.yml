@@ -1,5 +1,9 @@
 ---
 - hosts: localhost
-  remote_user: root
-  roles:
-    - ansible-role-openshift-local
+  gather_facts: true
+
+  tasks:
+  
+  - include_role:
+      name: ../../ansible-role-openshift-local
+      tasks_from: "{{ mode }}"
