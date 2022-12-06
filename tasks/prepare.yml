@@ -9,6 +9,49 @@
     msg: "Pull secret not found at {{ crc_config_pull_secret_file }}"
   when: not result.stat.exists
 
+# TODO: Download pull secret: https://console.redhat.com/openshift/create/local
+#https://access.redhat.com/solutions/4844461
+#<get pull secret? leverage openshift API https://api.openshift.com/>
+#https://api.openshift.com/api/accounts_mgmt/v1/access_token
+
+# Release Notes https://github.com/code-ready/crc/releases
+# TODO: check if `crc` binary does not exist or its outdated `crc version` shows `WARN A new version` then...
+# upgrading crc may require `crc delete`
+
+
+# Ensure proper installation
+#crc version
+
+- name: Download crc package
+  get_url:
+    url: "{{ crc_download_url }}"
+    dest: "{{ crc_package }}"
+
+- name: Install crc package [Mac OS]
+  shell: "installer -pkg {{ crc_package }} -target '{{ crc_macos_volume }}'"
+  when: ansible_os_family == "Darwin"
+  become: true
+
+- name: Remove package
+  file:
+    path: "{{ crc_package }}"
+    state: absent
+
+# Ensure crc installed and ready
+# crc version
+
+# Ensure location /usr/local/bin/crc
+#$ which crc
+
+# Check software versions
+#$ hyperkit -version
+#$ crc version
+
+- name: Set bash completion for `crc` command
+  command: crc completion bash > /usr/local/etc/bash_completion.d/crc_bash_completion
+    creates: /usr/local/etc/bash_completion.d/crc_bash_completion
+  register: result
+  
 - name: Set configuration properties
   command: "crc config set {{ item }}"
   with_items: 
@@ -21,7 +64,7 @@
     - "kubeadmin-password {{ crc_config_kubeadmin_password }}"
 
 # Prepare and create ~/.crc directory if not already existing
-- name: Set up local virtualization and networking infrastructure
+- name: Prepare local virtualization and networking infrastructure
   command: crc setup
   register: result
 

@@ -1,9 +1,0 @@
----
-- name: Delete local instance
-  shell: crc delete -f
-
-- name: Cleanup local instance
-  shell: crc cleanup
-
-- name: Remove preferences
-  shell: rm -rf ~/.crc

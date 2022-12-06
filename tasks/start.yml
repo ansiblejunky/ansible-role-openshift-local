@@ -1,4 +1,5 @@
 ---
+# Use `crc start --log-level debug` to debug issues
 - name: Start the instance
   command: crc start
   register: result
@@ -7,7 +8,18 @@
 - debug:
     var: result.stdout_lines
 
+- name: Create bash completion for `oc` command
+  command: oc completion bash > /usr/local/etc/bash_completion.d/
+    creates: "/usr/local/etc/bash_completion.d/oc_bash_completion"
+  register: result
+  changed_when: false
+
+- name: Login to OpenShift
+  command: oc login -u kubeadmin https://api.crc.testing:6443
+  register: result
+  changed_when: false
+
 - name: Open the OpenShift Web Console in the default browser
-  command: crc console
+  command: crc console --credentials
   register: result
   changed_when: false
