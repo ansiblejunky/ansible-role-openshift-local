@@ -1,4 +1,10 @@
 ---
 # tasks file for ansible-role-openshift-local
-- debug:
-    msg: "No default tasks"
+
+- name: Prepare instance
+  include_tasks:
+    file: prepare.yml
+
+- name: Start instance
+  include_tasks:
+    file: start.yml
