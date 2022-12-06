@@ -24,7 +24,15 @@
 
 # Prepare and create ~/.crc directory if not already existing
 - name: Set up local virtualization and networking infrastructure
-  command: crc setup -o json
+  command: crc setup
+  register: result
+
+- debug:
+    var: result.stdout_lines
 
 - name: Display configuration
   command: crc config view
+  register: result
+
+- debug:
+    var: result.stdout_lines
