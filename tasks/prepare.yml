@@ -1,6 +1,4 @@
 ---
-# OpenShift Local installation won't appear in the OpenShift Cluster Manager unless you enable cluster monitoring and telemetry.
-
 - name: Ensure pull secret file exists
   stat:
     path: "{{ crc_config_pull_secret_file }}"

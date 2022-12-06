@@ -4,6 +4,7 @@ crc_config_preset: openshift
 crc_config_cpus: 5
 crc_config_memory: 14305
 crc_config_pull_secret_file: "~/.pull-secret.txt"
+# OpenShift Local installation won't appear in the OpenShift Cluster Manager unless you enable cluster monitoring and telemetry.
 crc_config_consent_telemetry: "yes"
 crc_config_enable_cluster_monitoring: "false"
 crc_config_kubeadmin_password: "redhat"
