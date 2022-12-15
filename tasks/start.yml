@@ -14,6 +14,9 @@
   register: result
   changed_when: false
 
+# Set environment information
+# eval $(crc oc-env)
+
 - name: Login to OpenShift
   command: oc login -u kubeadmin https://api.crc.testing:6443
   register: result

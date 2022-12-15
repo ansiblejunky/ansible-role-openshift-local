@@ -5,3 +5,13 @@
 
 - debug:
     var: result
+
+# - Status on OpenShift objects
+
+# ```bash
+# oc get nodes
+# oc get projects
+# oc get operators --all-namespaces
+# oc get pods
+# oc get clusteroperators --all-namespaces
+# ```
